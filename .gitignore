@@ -1,0 +1,12 @@
+/.claude/
+/modifit_venv/
+.env
+/modifit_platform/authe/__pycache__/
+/modifit_platform/authe/migrations/
+/modifit_platform/authe/__init__.py
+/modifit_platform/fitness/__pycache__/
+/modifit_platform/fitness/migrations/
+/modifit_platform/fitness/__init__.py
+/modifit_platform/modifit_platform/__pycache__/
+/modifit_platform/modifit_platform/migrations/
+/modifit_platform/modifit_platform/__init__.py

@@ -1,0 +1,212 @@
+========================================
+EJEMPLO DE PETICIÓN POST - REGISTRO DE USUARIO
+========================================
+
+URL: http://localhost:8000/api/auth/register/
+Method: POST
+Content-Type: application/json
+
+----------------------------------------
+BODY (JSON):
+----------------------------------------
+
+{
+    "username": "juan_perez",
+    "email": "juan.perez@example.com",
+    "password": "MiPassword123!",
+    "password_confirm": "MiPassword123!",
+    "first_name": "Juan",
+    "last_name": "Pérez"
+}
+
+----------------------------------------
+RESPUESTA ESPERADA (201 Created):
+----------------------------------------
+
+{
+    "user": {
+        "id": 1,
+        "username": "juan_perez",
+        "email": "juan.perez@example.com",
+        "first_name": "Juan",
+        "last_name": "Pérez",
+        "date_joined": "2025-10-22T15:30:00.000000Z"
+    },
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDkyNDQwMCwiaWF0IjoxNjM0ODM4MDAwLCJqdGkiOiI4ZjM5ZTk0YzQwNGI0ZDQ5YjEyZTU4NjE5ZWQ4YmI5YSIsInVzZXJfaWQiOjF9.xYzABC123...",
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0ODU2MDAwLCJpYXQiOjE2MzQ4MzgwMDAsImp0aSI6ImY3YzYzMjQ1YjU2NDRiNDhhYTJlNTg2MTllZDhiYjlhIiwidXNlcl9pZCI6MX0.xYzABC123...",
+    "message": "Usuario creado exitosamente"
+}
+
+========================================
+NOTAS IMPORTANTES:
+========================================
+
+1. La contraseña debe tener al menos 8 caracteres
+2. password y password_confirm deben ser idénticos
+3. El email debe ser válido y único en el sistema
+4. El username debe ser único en el sistema
+5. first_name y last_name son opcionales
+6. Los tokens JWT se devuelven automáticamente tras el registro exitoso
+7. El access token tiene una duración de 5 horas
+8. El refresh token tiene una duración de 1 día
+
+========================================
+EJEMPLO CON INSOMNIA:
+========================================
+
+PASO 1: Crear una nueva petición
+   - Click en el botón "+" o "New Request"
+   - Nombre: "Registrar Usuario"
+   - Método: POST
+
+PASO 2: Configurar la URL
+   - URL: http://localhost:8000/api/auth/register/
+
+PASO 3: Configurar Body (IMPORTANTE - HACER PRIMERO)
+   - Click en la pestaña "Body"
+   - Seleccionar "JSON" en el dropdown (esto automáticamente configura el Content-Type)
+   - Pegar el siguiente JSON:
+
+{
+    "username": "juan_perez",
+    "email": "juan.perez@example.com",
+    "password": "MiPassword123!",
+    "password_confirm": "MiPassword123!",
+    "first_name": "Juan",
+    "last_name": "Pérez"
+}
+
+PASO 4: Verificar Headers (IMPORTANTE)
+   - Click en la pestaña "Header"
+   - Verificar que aparezca: Content-Type: application/json
+   - Si no aparece, selecciona nuevamente "JSON" en el Body
+
+PASO 5: Enviar la petición
+   - Click en el botón "Send"
+   - Verificar la respuesta en la parte inferior
+
+SOLUCIÓN DE PROBLEMAS:
+   - Si recibes "Unsupported media type", asegúrate de:
+     1. Seleccionar "JSON" (NO "Text") en el dropdown del Body
+     2. El Header Content-Type debe ser "application/json"
+     3. NO usar "Text" o "Plain"
+
+NOTA: Puedes guardar la petición en una carpeta llamada "Modifit API"
+      para organizarla mejor con otros endpoints.
+
+========================================
+EJEMPLO CON POSTMAN:
+========================================
+
+PASO 1: Crear una nueva petición
+   - Click en "New" > "HTTP Request"
+   - Cambiar el método a POST
+
+PASO 2: Configurar la URL
+   - URL: http://localhost:8000/api/auth/register/
+
+PASO 3: Configurar Body
+   - Click en la pestaña "Body"
+   - Seleccionar "raw"
+   - Seleccionar "JSON" en el dropdown a la derecha
+   - Pegar el siguiente JSON:
+
+{
+    "username": "juan_perez",
+    "email": "juan.perez@example.com",
+    "password": "MiPassword123!",
+    "password_confirm": "MiPassword123!",
+    "first_name": "Juan",
+    "last_name": "Pérez"
+}
+
+PASO 4: Enviar la petición
+   - Click en "Send"
+   - Verificar la respuesta
+
+========================================
+EJEMPLO CON CURL:
+========================================
+
+curl -X POST http://localhost:8000/api/auth/register/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "juan_perez",
+    "email": "juan.perez@example.com",
+    "password": "MiPassword123!",
+    "password_confirm": "MiPassword123!",
+    "first_name": "Juan",
+    "last_name": "Pérez"
+  }'
+
+========================================
+EJEMPLO CON JAVASCRIPT (FETCH):
+========================================
+
+fetch('http://localhost:8000/api/auth/register/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        username: 'juan_perez',
+        email: 'juan.perez@example.com',
+        password: 'MiPassword123!',
+        password_confirm: 'MiPassword123!',
+        first_name: 'Juan',
+        last_name: 'Pérez'
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Usuario registrado:', data);
+    // Guardar tokens
+    localStorage.setItem('access_token', data.access);
+    localStorage.setItem('refresh_token', data.refresh);
+})
+.catch(error => console.error('Error:', error));
+
+========================================
+EJEMPLO CON PYTHON (REQUESTS):
+========================================
+
+import requests
+
+url = 'http://localhost:8000/api/auth/register/'
+data = {
+    'username': 'juan_perez',
+    'email': 'juan.perez@example.com',
+    'password': 'MiPassword123!',
+    'password_confirm': 'MiPassword123!',
+    'first_name': 'Juan',
+    'last_name': 'Pérez'
+}
+
+response = requests.post(url, json=data)
+print(response.json())
+
+========================================
+POSIBLES ERRORES (400 Bad Request):
+========================================
+
+Error: Contraseñas no coinciden
+{
+    "password": ["Las contraseñas no coinciden."]
+}
+
+Error: Usuario ya existe
+{
+    "username": ["A user with that username already exists."]
+}
+
+Error: Email ya registrado
+{
+    "email": ["user with this email already exists."]
+}
+
+Error: Contraseña muy corta
+{
+    "password": ["Ensure this field has at least 8 characters."]
+}
+
+========================================
