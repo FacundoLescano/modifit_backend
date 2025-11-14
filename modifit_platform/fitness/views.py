@@ -73,6 +73,7 @@ class GenerateAIRoutineView(APIView):
                     'status': 'success',
                     'message': 'Rutina generada y guardada exitosamente',
                     'routine': serializer.data,
+                    'routines': [serializer.data],
                     'raw_response': ai_result.get('raw_response', '')
                 },
                 status=status.HTTP_201_CREATED
